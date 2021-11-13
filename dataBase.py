@@ -12,6 +12,9 @@ class dataBase():
           self.base = openpyxl.load_workbook(path)
           self.emotionTracker = self.base['emotionTracker']
           self.assignmentTracker = self.base['assignmentTracker']
+          self.etotalRows = 0
+          self.atotalRows = 0
+     
      def addEmotion(self,date,level):
           """add the date and emotion level into dataBase"""
           i = 0
@@ -21,12 +24,12 @@ class dataBase():
                i += 1
                cell_val = self.emotionTracker['A' + str(i)].value         
           #x = input('Prompt: ')
-          
           self.emotionTracker['A' + str(i)] = date
           self.emotionTracker['B' + str(i)] = level
-          # Modify Sheet, Starting With Row i
           self.base.save('dataBase.xlsx')
-      def addAssignment(self,deadline,course,percentage,finished):
+          self.etotalRows +=1
+          
+     def addAssignment(self,deadline,course,percentage,finished):
           """add the deadline, course, percentage of assignment, and finish status into dataBase"""
           i = 0
           cell_val = ''
@@ -34,10 +37,40 @@ class dataBase():
           while cell_val != None:
                i += 1
                cell_val = self.assignmentTracker['A' + str(i)].value         
-               
           self.assignmentTracker['A' + str(i)] = deadline
           self.assignmentTracker['B' + str(i)] = course
           self.assignmentTracker['C' + str(i)] = percentage
           self.assignmentTracker['D' + str(i)] = finished
           self.base.save('dataBase.xlsx')
-     
+          self.atotalRows +=1
+           
+     def delEmotion(self,date):
+          """delete the emotion records on that date"""
+          i = 1
+          cell_val = self.emotionTracker.cell(row=i,column=1)
+          while cell_val.value!=date and i<=self.etotalRows:
+               i += 1
+               cell_val = self.emotionTracker.cell(row=i,column=1)
+          if i>self.etotalRows:
+               return False
+          self.emotionTracker['A' + str(i)] = None
+          self.emotionTracker['B' + str(i)] = None
+          self.base.save('dataBase.xlsx')
+          
+          return True
+     def delAssignment(self,date):
+          """delete the assignment records on that date"""
+          i = 1
+          cell_val = self.assignmentTracker.cell(row=i,column=1)
+          while cell_val.value!=date and i<=self.atotalRows:
+               i += 1
+               cell_val = self.assignmentTracker.cell(row=i,column=1)
+          if i>self.atotalRows:
+               return False
+          self.assignmentTracker['A' + str(i)] = None
+          self.assignmentTracker['B' + str(i)] = None
+          self.assignmentTracker['C' + str(i)] = None
+          self.assignmentTracker['D' + str(i)] = None
+          self.base.save('dataBase.xlsx')
+          
+          return True
