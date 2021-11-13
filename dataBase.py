@@ -13,6 +13,7 @@ class dataBase():
           self.emotionTracker = self.base['emotionTracker']
           self.assignmentTracker = self.base['assignmentTracker']
      def addEmotion(self,date,level):
+          """add the date and emotion level into dataBase"""
           i = 0
           cell_val = ''
           # Finds which row is blank first
@@ -24,5 +25,19 @@ class dataBase():
           self.emotionTracker['A' + str(i)] = date
           self.emotionTracker['B' + str(i)] = level
           # Modify Sheet, Starting With Row i
+          self.base.save('dataBase.xlsx')
+      def addAssignment(self,deadline,course,percentage,finished):
+          """add the deadline, course, percentage of assignment, and finish status into dataBase"""
+          i = 0
+          cell_val = ''
+          # Finds which row is blank first
+          while cell_val != None:
+               i += 1
+               cell_val = self.assignmentTracker['A' + str(i)].value         
+               
+          self.assignmentTracker['A' + str(i)] = deadline
+          self.assignmentTracker['B' + str(i)] = course
+          self.assignmentTracker['C' + str(i)] = percentage
+          self.assignmentTracker['D' + str(i)] = finished
           self.base.save('dataBase.xlsx')
      
