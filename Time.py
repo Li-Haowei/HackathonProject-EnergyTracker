@@ -5,47 +5,38 @@ class Time():
 
     # Initializing a Time variable
     # inputs are initialized using setter functions
-    # day -> int value from 1-31
-    # month -> int value from 1 to 12
-    # year -> int value like 2021
-    # hour -> int value from 0 to 23
-    # minutes -> int value from 0 - 59
-    def __init__(self, day, month, year, hour, minutes):
-        self.setTime(day, month, year, hour, minutes)
+    # date_unsplit: contains string dd/mm/yyyy
+    # time_unsplit: contains hh:mm
+    def __init__(self, date_unsplit, time_unsplit):
+        date = date_unsplit.split("/")
+        if (time_unsplit != None):
+            time = time_unsplit.split(":")
+            self.setTime(time)
+        else:
+            self.hour = -1
+            self.minute = -1
+        self.setDate(date)
     
-    # Second type of initializing a Time variable
-    # Not using hour and minutes
-    # day, month, year are all int values
-    # set using the setter functions of the class
-    def __init__(self, day, month, year):
-        self.setTime(day, month, year)
-        self.hour = -1
-        self.minutes = -1
 
     # setter function that initializes/changes 
     # all variables and sets whether this year 
     # is a leap year
-    def setTime(self, day, month, year, hour, minutes):
+    # date input: list of three components,
+    # day, month, year
+    def setDate(self, date):
+        year_success = self.setYear(date[2])
         self.isLeapYear = self.isLeapYear()
-        self.setMonth(month)
-        self.setDay(day, month)
-        self.setMonth(month)
-        self.setYear(year)
-        self.setHour(hour)
-        self.setMinutes(minutes)
-    
-    # Setter function for day, month, year 
-    # to be modified in times where hours 
-    # and minutes are not applicable
-    # sets whether this year is a leap year
-    def setTime(self, day, month, year):
-        self.isLeapYear = self.isLeapYear()
-        self.setMonth(month)
-        self.setDay(day, month)
-        self.setMonth(month)
-        self.setYear(year)
-        self.hour = -1
-        self.minutes = -1
+        month_success = self.setMonth(date[1])
+        day_success = self.setDay(date[0], date[1])
+        return year_success and month_success and day_success
+
+    # setter function that sets up the time,
+    # hours and minutes.
+    # time input: list of two components, hrs and mins
+    def setTime(self, time):
+        hour_success = self.setHour(time[0])
+        minute_success = self.setMinutes(time[1])
+        return hour_success and minute_success
 
     # getter function returns the day
     def getDay(self):
@@ -73,6 +64,7 @@ class Time():
 
     # setter function that sets the day
     def setDay(self, day, month):
+        success = False
         # isMonth_31: variable that checks
         # whether the month has 31 days
         isMonth_31 = (month < 8 and month % 2 == 1) or (month >= 8 and month % 2 == 0)
@@ -85,33 +77,50 @@ class Time():
         if (month == 2):
             if (self.isLeapYear and day > 0 and day <= 29):
                 self.day = day
+                success = True
             elif (not self.isLeapYear and day > 0 and day <= 28):
                 self.day = day
+                success = True
 
         elif (isMonth_31 and day > 0 and day <= 31):
             self.day = day
+            success = True
         elif (isMonth_30 and day > 0 and day <= 30):
             self.day = day
+            success = True
+        return success
 
     # setter function that sets the month
     def setMonth(self, month):
+        success = False
         if (type(month) == int) and month <= 12 and month > 0:
             self.month = month
+            success = True
+        return success
     
     # setter function that sets the year
     def setYear(self, year):
+        success = False
         if (year > 0):
             self.year = year
+            success = True
+        return success
 
     # setter function that sets the hour
     def setHour(self, hour):
+        success = False
         if (hour <= 23 and hour >= 0):
             self.hour = hour
+            success = True
+        return success
     
     # setter function that sets the minutes
     def setMinutes(self, minutes):
+        success = False
         if (minutes <= 59 and minutes >= 0):
             self.minutes = minutes
+            success = True
+        return success
 
     # function that returns a bool value on whether year
     # is a leap year.
