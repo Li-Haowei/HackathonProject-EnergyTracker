@@ -99,4 +99,31 @@ class dataBase():
                cell_val = self.assignmentTracker.cell(row=i,column=1)
           return result
      
+     def printEmotion(self):
+          i = 1
+          cell_val = self.emotionTracker.cell(row=i,column=1)
+          while i<=self.emotionTracker['L1'].value:
+               if cell_val.value != None:
+                    print(
+                    "Date: ", self.emotionTracker.cell(row=i,column=1).value,
+                     " Emotion Level: ",self.emotionTracker.cell(row=i,column=2).value
+                    )
+               
+               i += 1
+               cell_val = self.emotionTracker.cell(row=i,column=1)
+     
+     def printAssignment(self):
+          i = 1
+          cell_val = self.assignmentTracker.cell(row=i,column=1)
+          while i<=self.assignmentTracker['L1'].value:
+               if cell_val.value != None:
+                    print(
+                         "Deadline: ", self.assignmentTracker.cell(row=i,column=1).value,
+                         "Course: ", self.assignmentTracker.cell(row=i,column=2).value,
+                         "Percentage: ",self.assignmentTracker.cell(row=i,column=3).value,
+                         "Finished: ",self.assignmentTracker.cell(row=i,column=4).value
+                               )
+               i += 1
+               cell_val = self.assignmentTracker.cell(row=i,column=1)
+     
      
