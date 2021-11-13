@@ -92,10 +92,23 @@ class Time():
 
     # setter function that sets the month
     def setMonth(self, month):
+        month_names_short = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", \
+             "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+        month_names = ["January", "February", "March", "April", "May", "June", \
+            "July", "Aug", "September", "October", "November", "December"]
+
         success = False
-        if (type(month) == int) and month <= 12 and month > 0:
-            self.month = month
+        if (len(month) == 2) and month <= 12 and month > 0:
+            self.month = month_names[month-1]
+            self.monthNum = month
             success = True
+        elif(len(month >= 3)):
+            if (month in month_names_short or month in month_names):
+                self.month = month
+                self.monthNum = month_names.index(month)
+                success = True
+
         return success
     
     # setter function that sets the year
