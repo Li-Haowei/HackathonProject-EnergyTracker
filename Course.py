@@ -8,7 +8,7 @@ class Course():
 
     # Initializing all main variables College, course, course number
     # and priority
-    def __init__(self, priority, college, course, courseNumber, student_major):
+    def __init__(self, college, course, courseNumber, priority, student_major):
         self.setCollege(college)
         self.setCourse(course)
         self.setCourseNumber(courseNumber)
