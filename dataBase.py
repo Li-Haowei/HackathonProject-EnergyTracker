@@ -136,5 +136,28 @@ class dataBase():
                          )
                i += 1
                cell_val = self.assignmentTracker.cell(row=i,column=1)
+               
+     def delEmotionDataBase(self):
+          """delete all the emotion records on that date"""
+          i = 1
+          while i<=self.emotionTracker['L1'].value:
+               i += 1
+               self.emotionTracker['A' + str(i)] = None
+               self.emotionTracker['B' + str(i)] = None
+               self.emotionTracker['C' + str(i)] = None
+               self.emotionTracker['D' + str(i)] = None
+          self.emotionTracker['L1'].value = 0
+          self.base.save('dataBase.xlsx')
+     def delAssignmentDataBase(self):
+          """delete all the emotion records on that date"""
+          i = 1
+          while i<=self.assignmentTracker['L1'].value:
+               i += 1
+               self.assignmentTracker['A' + str(i)] = None
+               self.assignmentTracker['B' + str(i)] = None
+               self.assignmentTracker['C' + str(i)] = None
+               self.assignmentTracker['D' + str(i)] = None
+          self.assignmentTracker['L1'].value = 0
+          self.base.save('dataBase.xlsx')
      
      
