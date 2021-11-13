@@ -12,8 +12,6 @@ class dataBase():
           self.base = openpyxl.load_workbook(path)
           self.emotionTracker = self.base['emotionTracker']
           self.assignmentTracker = self.base['assignmentTracker']
-          self.etotalRows = 0
-          self.atotalRows = 0
      
      def addEmotion(self,date,level):
           """add the date and emotion level into dataBase"""
@@ -26,8 +24,8 @@ class dataBase():
           #x = input('Prompt: ')
           self.emotionTracker['A' + str(i)] = date
           self.emotionTracker['B' + str(i)] = level
+          self.emotionTracker['L1'].value += 1
           self.base.save('dataBase.xlsx')
-          self.etotalRows +=1
           
      def addAssignment(self,deadline,course,percentage,finished):
           """add the deadline, course, percentage of assignment, and finish status into dataBase"""
@@ -41,17 +39,17 @@ class dataBase():
           self.assignmentTracker['B' + str(i)] = course
           self.assignmentTracker['C' + str(i)] = percentage
           self.assignmentTracker['D' + str(i)] = finished
+          self.assignmentTracker['L1'].value += 1
           self.base.save('dataBase.xlsx')
-          self.atotalRows +=1
            
      def delEmotion(self,date):
           """delete the emotion records on that date"""
           i = 1
           cell_val = self.emotionTracker.cell(row=i,column=1)
-          while cell_val.value!=date and i<=self.etotalRows:
+          while cell_val.value!=date and i<=self.emotionTracker['L1'].value:
                i += 1
                cell_val = self.emotionTracker.cell(row=i,column=1)
-          if i>self.etotalRows:
+          if i>self.emotionTracker['L1'].value:
                return False
           self.emotionTracker['A' + str(i)] = None
           self.emotionTracker['B' + str(i)] = None
@@ -62,10 +60,10 @@ class dataBase():
           """delete the assignment records on that date"""
           i = 1
           cell_val = self.assignmentTracker.cell(row=i,column=1)
-          while cell_val.value!=date and i<=self.atotalRows:
+          while cell_val.value!=date and i<=self.assignmentTracker['L1'].value:
                i += 1
                cell_val = self.assignmentTracker.cell(row=i,column=1)
-          if i>self.atotalRows:
+          if i>self.assignmentTracker['L1'].value:
                return False
           self.assignmentTracker['A' + str(i)] = None
           self.assignmentTracker['B' + str(i)] = None
@@ -74,3 +72,31 @@ class dataBase():
           self.base.save('dataBase.xlsx')
           
           return True
+     def getEmotion(self):
+          result = []
+          i = 1
+          cell_val = self.emotionTracker.cell(row=i,column=1)
+          while i<=self.emotionTracker['L1'].value:
+               if cell_val.value != None:
+                    result.append((self.emotionTracker.cell(row=i,column=1).value,self.emotionTracker.cell(row=i,column=2).value))
+               i += 1
+               cell_val = self.emotionTracker.cell(row=i,column=1)
+          return result
+     
+     def getAssignment(self):
+          result = []
+          i = 1
+          cell_val = self.assignmentTracker.cell(row=i,column=1)
+          while i<=self.assignmentTracker['L1'].value:
+               if cell_val.value != None:
+                    result.append((
+                              self.assignmentTracker.cell(row=i,column=1).value,
+                               self.assignmentTracker.cell(row=i,column=2).value,
+                               self.assignmentTracker.cell(row=i,column=3).value,
+                               self.assignmentTracker.cell(row=i,column=4).value
+                               ))
+               i += 1
+               cell_val = self.assignmentTracker.cell(row=i,column=1)
+          return result
+     
+     
