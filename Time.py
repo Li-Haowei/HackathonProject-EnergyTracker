@@ -42,6 +42,10 @@ class Time():
     def getDay(self):
         return self.day
     
+    # getter function that returns the monthNum
+    def getMonthNum(self):
+        return self.monthNum
+        
     # getter function that returns the month
     def getMonth(self):
         return self.month
