@@ -1,5 +1,7 @@
 from tkinter import *
 import numpy as np
+
+from matplotlib import *
 import matplotlib.pyplot as plt
 from dataBase import dataBase
 from Time import Time
@@ -11,7 +13,9 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 
 window = Tk()
 window.title("Energy Tracker")
-window.geometry("1000x1000")
+#window.geometry("1000x1000")
+#window.attributes('-fullscreen',True)
+window.state('zoomed')
 d = dataBase() # this is the dataBase
 
 
@@ -176,13 +180,85 @@ def calculation():
      c = Calculation()
      dic = {}
      for i in range(len(c.el)):
-          if (c.el[i][1] + c.el[i][2] + c.el[i][3])/3 not in dic.keys():
+          if (int(c.el[i][1]) + int(c.el[i][2]) + int(c.el[i][3]))/3 not in dic.keys():
                dic[(int(c.el[i][1]) + int(c.el[i][2]) + int(c.el[i][3])/3)] = [str(c.el[i][0])]
           else:
                dic[(int(c.el[i][1]) + int(c.el[i][2]) + int(c.el[i][3])/3)].append(str(c.el[i][0]))
      return dic
 
-determine = [[10,14,"Bear"],[17,23,"Wolf"],[8,12,"Lion"],[15,21,"Dolphin"]]
+determine = [
+          [10,14,"Bear", "Much like its namesake, the bear chronotype follows "+
+           "the solar cycle, and usually doesn’t have much trouble waking up in "+
+           "the morning or falling asleep at night. This chronotype is most "+
+           "productive in the morning, and will typically struggle with an "+
+           "afternoon slump after lunch, generally around 2–4 p.m. Eight hours "
+           +"of sleep is typical for a bear, and normal sleep hours are "+
+           "usually between 11 p.m. and 7 a.m.",
+           "7–8 a.m.: Wake up\n"+
+          "10 a.m.–2 p.m.: Focus on deep work\n"+
+          "2–4 p.m.: Work on lighter tasks\n"+
+          "4–10 p.m.: Relax and unwind\n"+
+          "10–11 p.m.: Get ready for bed\n"+
+          "11 p.m.–7 a.m.: Sleep\n"],
+          [17,23,"Wolf",
+           "Just like their real life counterparts, wolf \n"+
+           "chronotypes are most productive at night. The wolf \n"+
+           "needs more time to hit snooze in the morning to get all \n"+
+           "the energy they need to sustain their two bursts of creative \n"+
+           "energy: the first around noon, and the second coming around 6 p.m. \n"+
+           "when most others have finished their work for the day. \n"+
+           "Similar to what is considered a night owl, this chronotype \n"+
+           "doesn’t get going until the sun sets, and they may have difficulty \n"+
+           "waking when it comes back up. Wolves are often happy to go to bed \n"+
+           "at midnight, or well past it, to help fuel their creativity.\n",
+           "7:30–9 a.m.: Wake up\n"+
+          "10 a.m.–12 p.m.: Focus on lighter tasks\n"+
+          "12–2 p.m.: Complete deep or creative work\n"+
+          "2–5 p.m.: Focus on lighter, less intense tasks\n"+
+          "5–9 p.m.: Engage in creative tasks\n"+
+          "9–10 p.m.: Unwind from the day\n"+
+          "10 p.m.–12 a.m.: Prepare for bed\n"+
+          "12–7:30 a.m.: Sleep\n"
+          ],
+          [8,12,"Lion","The early lion gets the worm. This chronotype feels "+
+           "most alive in the morning with energy levels peaking before noon, "+
+           "and is typically able to complete massive amounts of work before"+
+           "lunch. Waking up early is a breeze for lions and everything tends "+
+           "to run smoothly until midday. Just as fast as energy for a lion "+
+           "is gained, it’s lost. The afternoon slump hits this group hard, "+
+           "often needing a power nap to recharge, and by the evening they "+
+           "feel drained. It’s important for lions to have an evening wind-down "+
+           "routine to help them decompress from the day, before calling it an "+
+           "early night around 10 p.m. Lions generally need around eight hours "+
+           "of sleep per night to sustain their high energy levels in the early morning",
+           "6–7 a.m.: Wake up\n"+
+          "8 a.m.–12 p.m.: Focus on deep work\n"+
+          "12–4 p.m.: Focus on lighter tasks\n"+
+          "4–9 p.m.: Daily unwind and relax\n"+
+          "9–10 p.m.: Get ready for bed\n"+
+          "10 p.m. – 6 a.m.: Sleep\n"],
+          [15,21,"Dolphin","The insomniac of the water, actual dolphins sleep with "+
+           "half of their brain on at a time — this helps them stay alert and aware "+
+           "of predators. Dolphins have a hard time waking up in the morning, but "+
+           "once they get going, their productivity reaches its peak around mid-morning. "+
+           "Similar to their nocturnal counterpart, there is always underlying tiredness "+
+           "for dolphins due to their anxious sleeping behaviors — including having "+
+           "a hard time falling asleep each night and rarely getting a full night of "+
+           "sleep. Dolphin chronotypes will usually fall asleep because their body "+
+           "needs to, not because they willingly give in to sleep. Because of their "+
+           "sporadic sleeping habits, it’s recommended they sleep from about midnight to 6 a.m."
+           ,
+           "6:30–7:30 a.m.: Wake up\n"+
+           "8–10 a.m.: Engage with easy to-dos\n"+
+          "10 a.m.–12 p.m.: Focus on demanding tasks\n"+
+          "12–4 p.m.: Complete less demanding tasks\n"+
+          "4–10 p.m.: Relax, unwind from the day\n"+
+          "10–11:30 p.m.: Prepare for bed\n"+
+          "12–6:30 a.m.: Sleep\n"]
+          ]
+import tkinter.font as tkFont
+fontStyle20 = tkFont.Font(family="Lucida Grande", size=20)
+fontStyle11 = tkFont.Font(family="Lucida Grande", size=11)
 def whatAreU():
      dic = calculation()
      listOfKeys = list(dic.keys())
@@ -190,13 +266,21 @@ def whatAreU():
      peak = dic[listOfKeys[-1]][0]
      peak = peak.split(" ")[1]
      peak = peak.split(":")[0]
-     
      for i in determine:
-          if i[0]<peak and peak>i[1]:
-               myLabel1 = Label(window,text=i[2])
-               myLabel1.grid(8,1)
-     myLabel1 = Label(window,text="No fit")
-     
+          if i[0]<int(peak) and int(peak)<i[1]:
+               #animal
+               myLabel1 = Label(window,text=(i[2]+" "),font=fontStyle20,bg="pink")
+               myLabel1.grid(row=0,column=9,columnspan=3)
+               #description
+               myLabel2 = Label(window,text=i[3],font=fontStyle11,bg="green")
+               myLabel2.grid(row=1,column=9,columnspan=3,rowspan=3)
+               #schedule
+               myLabel3 = Label(window,text=i[4],font=fontStyle11,bg="grey")
+               myLabel3.grid(row=4,column=9,columnspan=3,rowspan=3)
+               return
+     myLabel1 = Label(window,text="No fit ",font=fontStyle20,bg="pink")
+     myLabel1.grid(row=0,column=9,columnspan=3)
+     return
 def clearData():
      d.delEmotionDataBase()
      d.delAssignmentDataBase()
@@ -206,5 +290,8 @@ button7.grid(row=6,column=6)
 
 button8 = Button(window, text="Wipe All Records", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: clearData())
 button8.grid(row=7,column=6) 
+
+
+
     
 window.mainloop() 
