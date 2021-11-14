@@ -17,6 +17,26 @@ class Time():
             self.minute = -1
         self.setDate(date)
     
+    def __cmp__(self, otherTime):
+        isLater = False
+        if (self.year >= otherTime.year):
+            isLaterYear = True
+        if (self.monthNum >= otherTime.monthNum):
+            isLaterMonth = True
+        if (self.day >= otherTime.day):
+            isLaterDay = True
+        if (self.hours >= otherTime.hours):
+            isLaterHours = True
+        if (self.minutes >= otherTime.minutes):
+            isLaterMins = True
+
+        isLaterDate = isLaterYear and isLaterMonth and isLaterDay
+        isLaterTime = isLaterHours and isLaterMins
+
+        isLater = isLaterDate and isLaterTime
+        return isLater
+        
+
 
     # setter function that initializes/changes 
     # all variables and sets whether this year 
@@ -145,10 +165,12 @@ class Time():
         if (year % 4 == 0 or (year % 100 == 0 and year % 400 == 0)):
             return True
     
-    def isLater(self, timeA, timeB):
+    def isLater(self, otherTime):
+        isLater = self.__cmp__(otherTime)
         """Take in two strings, timeA and timeB, comparing which one of them is later.
         If timeA is later, return True, else False. 
         For instance, isLater(10/Jan/2021,11/Jan/2021), return False"""
-        return True
+
+        return isLater
 
     
