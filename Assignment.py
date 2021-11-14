@@ -12,12 +12,29 @@ class Assignment():
     # inputs: percent_of_grade (ratio of grade for course)
     #           deadline_date (string input dd/mm/yyyy or dd/mmm/yyyy)
     #           deadline_time (string input hh:mm)
-    def __init__(self, course, percent_of_grade, deadline_date, deadline_time):
+    def __init__(self, assignment_name, course, percent_of_grade, deadline_date, deadline_time):
         self.course = course.__init__(course)
+        self.setName(assignment_name)
         self.setDeadline(time)
         self.setGradePercent(percent_of_grade)
         self.finished = False
 
+    # returns the assignment name
+    def getName(self):
+        return self.course.toString() + self.name
+
+    # returns the courses priority
+    def getPriority(self):
+        return self.course.getPriority()
+
+    # returns the deadline of the assignments
+    def getDeadline(self):
+        return self.deadline
+
+    # setter function to set the name of the assignment
+    def setName(self, assignment_name):
+        self.name = assignment_name
+        
     # setter function to set the date of the assginment deadline
     def setDeadline(self, deadline_date, deadline_time):
         self.deadline = time.__init__(deadline_date, deadline_time)

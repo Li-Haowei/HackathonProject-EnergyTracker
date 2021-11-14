@@ -29,7 +29,7 @@ class dataBase():
           self.emotionTracker['L1'].value += 1
           self.base.save('dataBase.xlsx')
           
-     def addAssignment(self,deadline,course,percentage,finished):
+     def addAssignment(self,deadline,course,percentage,duration):
           """add the deadline, course, percentage of assignment, and finish status into dataBase"""
           i = 0
           cell_val = ''
@@ -40,7 +40,7 @@ class dataBase():
           self.assignmentTracker['A' + str(i)] = deadline
           self.assignmentTracker['B' + str(i)] = course
           self.assignmentTracker['C' + str(i)] = percentage
-          self.assignmentTracker['D' + str(i)] = finished
+          self.assignmentTracker['D' + str(i)] = duration
           self.assignmentTracker['L1'].value += 1
           self.base.save('dataBase.xlsx')
            
@@ -132,7 +132,7 @@ class dataBase():
                          "Deadline: ", self.assignmentTracker.cell(row=i,column=1).value,
                          "Course: ", self.assignmentTracker.cell(row=i,column=2).value,
                          "Percentage: ",self.assignmentTracker.cell(row=i,column=3).value,
-                         "Finished: ",self.assignmentTracker.cell(row=i,column=4).value
+                         "Duration: ",self.assignmentTracker.cell(row=i,column=4).value
                          )
                i += 1
                cell_val = self.assignmentTracker.cell(row=i,column=1)
@@ -141,22 +141,22 @@ class dataBase():
           """delete all the emotion records on that date"""
           i = 1
           while i<=self.emotionTracker['L1'].value:
-               i += 1
                self.emotionTracker['A' + str(i)] = None
                self.emotionTracker['B' + str(i)] = None
                self.emotionTracker['C' + str(i)] = None
                self.emotionTracker['D' + str(i)] = None
+               i += 1
           self.emotionTracker['L1'].value = 0
           self.base.save('dataBase.xlsx')
      def delAssignmentDataBase(self):
           """delete all the emotion records on that date"""
           i = 1
           while i<=self.assignmentTracker['L1'].value:
-               i += 1
                self.assignmentTracker['A' + str(i)] = None
                self.assignmentTracker['B' + str(i)] = None
                self.assignmentTracker['C' + str(i)] = None
                self.assignmentTracker['D' + str(i)] = None
+               i += 1
           self.assignmentTracker['L1'].value = 0
           self.base.save('dataBase.xlsx')
      

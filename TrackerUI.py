@@ -77,7 +77,7 @@ e9.insert(0,"Percentage")
 
 e10 = Entry(window, width=20, borderwidth=10)
 e10.grid(row=1,column=5,columnspan=1, padx=0,pady=40)
-e10.insert(0,"Finished")
+e10.insert(0,"Duration")
 
 def save2():
      d.addAssignment(e6.get()+" "+e7.get(), e8.get(), e9.get(), e10.get())
@@ -90,52 +90,52 @@ def save2():
      e7.insert(0,"Hours:Minutes")
      e8.insert(0,"Course")
      e9.insert(0,"Percentage")
-     e10.insert(0,"Finished")
+     e10.insert(0,"Duration")
      return  
 
 def plotEmotion():
      c = Calculation()
      x=[]
      y=[]
-     fig = Figure(figsize = (5, 3),dpi = 100)
+     fig = Figure(figsize = (7, 4),dpi = 100)
      for i in range(len(c.el)):
-          x.append(c.el[i][0])
+          x.append(i)
           y.append(c.el[i][1])
      plot1 = fig.add_subplot(111)
      plot1.plot(x,y)
      canvas = FigureCanvasTkAgg(fig,master = window)  
      canvas.draw()
-     canvas.get_tk_widget().grid(row=3,column=1,columnspan=4, rowspan=4) 
+     canvas.get_tk_widget().grid(row=3,column=0,columnspan=8, rowspan=8,sticky=W) 
      toolbar = NavigationToolbar2Tk(canvas,window)
      toolbar.update() 
 def plotEnergy():
      c = Calculation()
      x=[]
      y=[]
-     fig = Figure(figsize = (5, 3),dpi = 100)
+     fig = Figure(figsize = (7, 4),dpi = 100)
      for i in range(len(c.el)):
-          x.append(c.el[i][0])
+          x.append(i)
           y.append(c.el[i][2])
      plot1 = fig.add_subplot(111)
      plot1.plot(x,y)
      canvas = FigureCanvasTkAgg(fig,master = window)  
      canvas.draw()
-     canvas.get_tk_widget().grid(row=3,column=1,columnspan=4, rowspan=4) 
+     canvas.get_tk_widget().grid(row=3,column=0,columnspan=8, rowspan=8,sticky=W) 
      toolbar = NavigationToolbar2Tk(canvas,window)
      toolbar.update() 
 def plotFocus():
      c = Calculation()
      x=[]
      y=[]
-     fig = Figure(figsize = (5, 3),dpi = 100)
+     fig = Figure(figsize = (7, 4),dpi = 100)
      for i in range(len(c.el)):
-          x.append(c.el[i][0])
+          x.append(i)
           y.append(c.el[i][3])
      plot1 = fig.add_subplot(111)
      plot1.plot(x,y)
      canvas = FigureCanvasTkAgg(fig,master = window)  
      canvas.draw()
-     canvas.get_tk_widget().grid(row=3,column=1,columnspan=4, rowspan=4) 
+     canvas.get_tk_widget().grid(row=3,column=0,columnspan=8, rowspan=8,sticky=W) 
      toolbar = NavigationToolbar2Tk(canvas,window)
      toolbar.update() 
      
@@ -145,9 +145,9 @@ def plotHybre():
      y1=[]
      y2=[]
      y3=[]
-     fig = Figure(figsize = (5, 3),dpi = 100)
+     fig = Figure(figsize = (7, 4),dpi = 100)
      for i in range(len(c.el)):
-          x.append(c.el[i][0])
+          x.append(i)
           y1.append(c.el[i][1])
           y2.append(c.el[i][2])
           y3.append(c.el[i][3])
@@ -159,7 +159,7 @@ def plotHybre():
      plot3.plot(x,y3, color ="blue",label="Focus")
      canvas = FigureCanvasTkAgg(fig,master = window)  
      canvas.draw()
-     canvas.get_tk_widget().grid(row=3,column=1,columnspan=4, rowspan=4) 
+     canvas.get_tk_widget().grid(row=3,column=0,columnspan=8, rowspan=8,sticky=W) 
      toolbar = NavigationToolbar2Tk(canvas,window)
      toolbar.update() 
      
@@ -167,7 +167,7 @@ button1 = Button(window, text="Store Your Mental Status", borderwidth=10, padx =
 button1.grid(row=0,column=6) 
 button2 = Button(window, text="Store Assignment Information", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: save2())
 button2.grid(row=1,column=6) 
-button3 = Button(window, text="Plot Emotion Graph", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: plotEmotion())
+button3 = Button(window, text="Plot Motivation Graph", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: plotEmotion())
 button3.grid(row=2,column=6) 
 button4 = Button(window, text="Plot Energy Graph", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: plotEnergy())
 button4.grid(row=3,column=6) 
@@ -187,19 +187,19 @@ def calculation():
      return dic
 
 determine = [
-          [10,14,"Bear", "Much like its namesake, the bear chronotype follows "+
-           "the solar cycle, and usually doesn’t have much trouble waking up in "+
-           "the morning or falling asleep at night. This chronotype is most "+
-           "productive in the morning, and will typically struggle with an "+
-           "afternoon slump after lunch, generally around 2–4 p.m. Eight hours "
-           +"of sleep is typical for a bear, and normal sleep hours are "+
+          [10,14,"Bear", "Much like its namesake, the bear chronotype follows \n"+
+           "the solar cycle, and usually doesn’t have much trouble waking up in \n"+
+           "the morning or falling asleep at night. This chronotype is most \n"+
+           "productive in the morning, and will typically struggle with an \n"+
+           "afternoon slump after lunch, generally around 2–4 p.m. Eight hours \n"
+           +"of sleep is typical for a bear, and normal sleep hours are \n"+
            "usually between 11 p.m. and 7 a.m.",
            "7–8 a.m.: Wake up\n"+
           "10 a.m.–2 p.m.: Focus on deep work\n"+
           "2–4 p.m.: Work on lighter tasks\n"+
           "4–10 p.m.: Relax and unwind\n"+
           "10–11 p.m.: Get ready for bed\n"+
-          "11 p.m.–7 a.m.: Sleep\n"],
+          "11 p.m.–7 a.m.: Sleep"],
           [17,23,"Wolf",
            "Just like their real life counterparts, wolf \n"+
            "chronotypes are most productive at night. The wolf \n"+
@@ -210,7 +210,7 @@ determine = [
            "Similar to what is considered a night owl, this chronotype \n"+
            "doesn’t get going until the sun sets, and they may have difficulty \n"+
            "waking when it comes back up. Wolves are often happy to go to bed \n"+
-           "at midnight, or well past it, to help fuel their creativity.\n",
+           "at midnight, or well past it, to help fuel their creativity.",
            "7:30–9 a.m.: Wake up\n"+
           "10 a.m.–12 p.m.: Focus on lighter tasks\n"+
           "12–2 p.m.: Complete deep or creative work\n"+
@@ -218,34 +218,34 @@ determine = [
           "5–9 p.m.: Engage in creative tasks\n"+
           "9–10 p.m.: Unwind from the day\n"+
           "10 p.m.–12 a.m.: Prepare for bed\n"+
-          "12–7:30 a.m.: Sleep\n"
+          "12–7:30 a.m.: Sleep"
           ],
-          [8,12,"Lion","The early lion gets the worm. This chronotype feels "+
-           "most alive in the morning with energy levels peaking before noon, "+
-           "and is typically able to complete massive amounts of work before"+
-           "lunch. Waking up early is a breeze for lions and everything tends "+
-           "to run smoothly until midday. Just as fast as energy for a lion "+
-           "is gained, it’s lost. The afternoon slump hits this group hard, "+
-           "often needing a power nap to recharge, and by the evening they "+
-           "feel drained. It’s important for lions to have an evening wind-down "+
-           "routine to help them decompress from the day, before calling it an "+
-           "early night around 10 p.m. Lions generally need around eight hours "+
+          [8,12,"Lion","The early lion gets the worm. This chronotype feels \n"+
+           "most alive in the morning with energy levels peaking before noon, \n"+
+           "and is typically able to complete massive amounts of work before\n"+
+           "lunch. Waking up early is a breeze for lions and everything tends \n"+
+           "to run smoothly until midday. Just as fast as energy for a lion\n "+
+           "is gained, it’s lost. The afternoon slump hits this group hard, \n"+
+           "often needing a power nap to recharge, and by the evening they \n"+
+           "feel drained. It’s important for lions to have an evening wind-down \n"+
+           "routine to help them decompress from the day, before calling it an \n"+
+           "early night around 10 p.m. Lions generally need around eight hours \n"+
            "of sleep per night to sustain their high energy levels in the early morning",
            "6–7 a.m.: Wake up\n"+
           "8 a.m.–12 p.m.: Focus on deep work\n"+
           "12–4 p.m.: Focus on lighter tasks\n"+
           "4–9 p.m.: Daily unwind and relax\n"+
           "9–10 p.m.: Get ready for bed\n"+
-          "10 p.m. – 6 a.m.: Sleep\n"],
-          [15,21,"Dolphin","The insomniac of the water, actual dolphins sleep with "+
-           "half of their brain on at a time — this helps them stay alert and aware "+
-           "of predators. Dolphins have a hard time waking up in the morning, but "+
-           "once they get going, their productivity reaches its peak around mid-morning. "+
-           "Similar to their nocturnal counterpart, there is always underlying tiredness "+
-           "for dolphins due to their anxious sleeping behaviors — including having "+
-           "a hard time falling asleep each night and rarely getting a full night of "+
-           "sleep. Dolphin chronotypes will usually fall asleep because their body "+
-           "needs to, not because they willingly give in to sleep. Because of their "+
+          "10 p.m. – 6 a.m.: Sleep"],
+          [15,21,"Dolphin","The insomniac of the water, actual dolphins sleep with \n"+
+           "half of their brain on at a time — this helps them stay alert and aware \n"+
+           "of predators. Dolphins have a hard time waking up in the morning, but \n"+
+           "once they get going, their productivity reaches its peak around mid-morning. \n"+
+           "Similar to their nocturnal counterpart, there is always underlying tiredness \n"+
+           "for dolphins due to their anxious sleeping behaviors — including having \n"+
+           "a hard time falling asleep each night and rarely getting a full night of \n"+
+           "sleep. Dolphin chronotypes will usually fall asleep because their body \n"+
+           "needs to, not because they willingly give in to sleep. Because of their \n"+
            "sporadic sleeping habits, it’s recommended they sleep from about midnight to 6 a.m."
            ,
            "6:30–7:30 a.m.: Wake up\n"+
@@ -254,7 +254,7 @@ determine = [
           "12–4 p.m.: Complete less demanding tasks\n"+
           "4–10 p.m.: Relax, unwind from the day\n"+
           "10–11:30 p.m.: Prepare for bed\n"+
-          "12–6:30 a.m.: Sleep\n"]
+          "12–6:30 a.m.: Sleep"]
           ]
 import tkinter.font as tkFont
 fontStyle20 = tkFont.Font(family="Lucida Grande", size=20)
@@ -269,13 +269,13 @@ def whatAreU():
      for i in determine:
           if i[0]<int(peak) and int(peak)<i[1]:
                #animal
-               myLabel1 = Label(window,text=(i[2]+" "),font=fontStyle20,bg="pink")
+               myLabel1 = Label(window,text=("Chronotype: " +i[2]+""),font=fontStyle20,bg="pink")
                myLabel1.grid(row=0,column=9,columnspan=3)
                #description
-               myLabel2 = Label(window,text=i[3],font=fontStyle11,bg="green")
+               myLabel2 = Label(window,text=("Chronotype: " +i[3]+" "),font=fontStyle11,bg="green")
                myLabel2.grid(row=1,column=9,columnspan=3,rowspan=3)
                #schedule
-               myLabel3 = Label(window,text=i[4],font=fontStyle11,bg="grey")
+               myLabel3 = Label(window,text=("Chronotype: " +i[4]+" "),font=fontStyle11,bg="grey")
                myLabel3.grid(row=4,column=9,columnspan=3,rowspan=3)
                return
      myLabel1 = Label(window,text="No fit ",font=fontStyle20,bg="pink")
