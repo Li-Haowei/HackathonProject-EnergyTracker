@@ -1,3 +1,11 @@
+'''
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+'''
 
 # A Time class that will be utilized to create a schedule/calendar
 # that includes assignments and class times
@@ -24,20 +32,26 @@ class Time():
             self.setTime(time_split)
     
     def __cmp__(self, otherTime):
-        isLater = False
-        if (self.year >= otherTime.year):
-            isLaterYear = True
-        if (self.monthNum >= otherTime.monthNum):
-            isLaterMonth = True
-        if (self.day >= otherTime.day):
-            isLaterDay = True
-        if (self.hours >= otherTime.hours):
-            isLaterHours = True
-        if (self.minutes >= otherTime.minutes):
-            isLaterMins = True
+        isLater = True
+        isLaterYear = True
+        isLaterMonth = True
+        isLaterDay = True
+        isLaterHour = True
+        isLaterMin = True
+        
+        if (self.year < otherTime.year):
+            isLaterYear = False
+        elif (self.monthNum < otherTime.monthNum):
+            isLaterMonth = False
+        elif (self.day < otherTime.day):
+            isLaterDay = False
+        elif (self.hour < otherTime.hour):
+            isLaterHour = False
+        elif (self.minutes < otherTime.minutes):
+            isLaterMin = False
 
         isLaterDate = isLaterYear and isLaterMonth and isLaterDay
-        isLaterTime = isLaterHours and isLaterMins
+        isLaterTime = isLaterHour and isLaterMin
 
         isLater = isLaterDate and isLaterTime
         return isLater
@@ -189,10 +203,7 @@ def isLaterString(timeA, timeB):
         For instance, isLater(10/Jan/2021,11/Jan/2021), return False"""
     dateA_split = timeA.split(" ")
     dateB_split = timeB.split(" ")
-    timeA_instance = Time.__init__(dateA_split[0], dateA_split[1])
-    timeB_instance = Time.__init__(dateB_split[0], dateB_split[1])
+    timeA_instance = Time(dateA_split[0], dateA_split[1])
+    timeB_instance = Time(dateB_split[0], dateB_split[1])
     return timeA_instance.isLater(timeB_instance)
 
-    
-
-    
