@@ -1,3 +1,5 @@
+
+
 *{
     margin: 0;
     padding: 0;
@@ -60,12 +62,14 @@
     top: 40%;
     transform: translateY(-50%);
     text-align: center;
-    color: #E4EFF4;
+    color: #0EB56F;
+
 }
 
 .content h1{
     font-size: 70px;
     margin-top: 80px;
+
 }
 
 .content p{
@@ -74,7 +78,10 @@
     margin: 20px auto;
     font-weight: 100;
     line-height: 25px;
+    color: #E4EFF4;
+
 }
+
 button{
     width: 200px;
     padding: 15px 0;
@@ -119,7 +126,7 @@ button:hover{
 
 .multirate ul li{
     margin-bottom: 25px;
-    margin-left: 400px;
+    margin-left: 380px;
 }
 
 .rating{
@@ -128,7 +135,24 @@ button:hover{
     left: 50%;
     transform: translate(-50%,-50%);
 }
-
+.rating input{
+    display: none;
+}
 .rating label{
-    display: black;
+    display: block;
+    cursor: pointer;
+    width: 50px;
+    background: red;
+}
+
+.rating label:before{
+    content: '\f118';
+    font-family: fontAwesome;
+}
+
+.chart1{
+    margin: 170px auto;
+    padding: 1000px;
+    height: 500px;
+    width: 500px; 
 }
