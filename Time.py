@@ -166,11 +166,23 @@ class Time():
             return True
     
     def isLater(self, otherTime):
+        """Compares two Time objects and returns True
+           If the self object is later compared to the otherTime
+           Else, returns False
+        """
         isLater = self.__cmp__(otherTime)
-        """Take in two strings, timeA and timeB, comparing which one of them is later.
+        return isLater
+
+def isLaterString(timeA, timeB):
+    """Take in two strings, timeA and timeB, comparing which one of them is later.
         If timeA is later, return True, else False. 
         For instance, isLater(10/Jan/2021,11/Jan/2021), return False"""
+    dateA_split = timeA.split(" ")
+    dateB_split = timeB.split(" ")
+    timeA_instance = Time.__init__(dateA_split[0], dateA_split[1])
+    timeB_instance = Time.__init__(dateB_split[0], dateB_split[1])
+    return timeA_instance.isLater(timeB_instance)
 
-        return isLater
+    
 
     
