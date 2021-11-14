@@ -47,6 +47,13 @@ class Course():
     def getCourse(self):
         return self.course
 
+    def getCourseNum(self):
+        return self.courseNumber
+
     # getter function to return the priority of the course
     def getPriority(self):
         return self.priority
+    
+    # a toString that returns the complete course name + college.
+    def toString(self):
+        return self.getCollege() + self.getCourse() + self.courseNumber

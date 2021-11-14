@@ -1,12 +1,20 @@
 import Course as course
 import Assignment as assign
 
-def AssignmentSort(lst_assignments, lst_percents, lst_deadline, student_major):
+# assignment sort sorts the assignment based on priority and deadlines
+# inputs: assignment_names -> lst of assignment names
+# lst_assignments -> lst of course names
+# lst_percents -> list of how much each assignment is worth to the course
+# lst_deadlines -> list of the assignment deadlines
+# student_major -> the student major that allows us to 
+# prioritize major course assignments
+def AssignmentSort(assignment_names, lst_assignments, lst_percents, lst_deadline, student_major):
     # setting up the assignments in a list
     course_data = [[lst_assignments[i].split(" ")] for i in range(len(lst_assignments))]
     courses = {}
     assignments = []
     for i in range(len(course_data)):
+        assignment_name = assignment_names[i]
         course_name = str(course_data[i][0]) + str(course_data[i][1])
         deadline_date_time = lst_deadline.split(" ")
         deadline_date = deadline_date_time[0]
@@ -15,11 +23,11 @@ def AssignmentSort(lst_assignments, lst_percents, lst_deadline, student_major):
             courses[course_name] = 1
         else:
             courses[course_name] += 1
-        assignments += [assign.__init__(course_name, lst_percents[i], deadline_date, deadline_date_time)]
+        assignments += [assign.__init__(assignment_name, course_name + [student_major], lst_percents[i], deadline_date, deadline_date_time)]
 
     # sorting them based on time and priority
-    sorted_assignments = mergeSort(assignments, 0, len(assignments) - 1)
-    return sorted_assignments
+    mergeSort(assignments, 0, len(assignments) - 1)
+    return assignments
     
 
 # using mergeSort to sort the assignments
