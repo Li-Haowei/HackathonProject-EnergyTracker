@@ -189,7 +189,13 @@ def whatAreU():
      listOfKeys.sort()
      peak = dic[listOfKeys[-1]][0]
      peak = peak.split(" ")[1]
-     print(peak)
+     peak = peak.split(":")[0]
+     
+     for i in determine:
+          if i[0]<peak and peak>i[1]:
+               myLabel1 = Label(window,text=i[2])
+               myLabel1.grid(8,1)
+     myLabel1 = Label(window,text="No fit")
      
 def clearData():
      d.delEmotionDataBase()
