@@ -77,7 +77,7 @@ e9.insert(0,"Percentage")
 
 e10 = Entry(window, width=20, borderwidth=10)
 e10.grid(row=1,column=5,columnspan=1, padx=0,pady=40)
-e10.insert(0,"Finished")
+e10.insert(0,"Duration")
 
 def save2():
      d.addAssignment(e6.get()+" "+e7.get(), e8.get(), e9.get(), e10.get())
@@ -90,7 +90,7 @@ def save2():
      e7.insert(0,"Hours:Minutes")
      e8.insert(0,"Course")
      e9.insert(0,"Percentage")
-     e10.insert(0,"Finished")
+     e10.insert(0,"Duration")
      return  
 
 def plotEmotion():
@@ -167,7 +167,7 @@ button1 = Button(window, text="Store Your Mental Status", borderwidth=10, padx =
 button1.grid(row=0,column=6) 
 button2 = Button(window, text="Store Assignment Information", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: save2())
 button2.grid(row=1,column=6) 
-button3 = Button(window, text="Plot Emotion Graph", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: plotEmotion())
+button3 = Button(window, text="Plot Motivation Graph", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: plotEmotion())
 button3.grid(row=2,column=6) 
 button4 = Button(window, text="Plot Energy Graph", borderwidth=10, padx = 20, pady = 10, bg="white", command=lambda: plotEnergy())
 button4.grid(row=3,column=6) 
@@ -269,13 +269,13 @@ def whatAreU():
      for i in determine:
           if i[0]<int(peak) and int(peak)<i[1]:
                #animal
-               myLabel1 = Label(window,text=(i[2]+" "),font=fontStyle20,bg="pink")
+               myLabel1 = Label(window,text=("Chronotype: " + i[2]+" "),font=fontStyle20,bg="pink")
                myLabel1.grid(row=0,column=9,columnspan=3)
                #description
-               myLabel2 = Label(window,text=i[3],font=fontStyle11,bg="green")
+               myLabel2 = Label(window,text=("Chronotype: " +i[3]+" "),font=fontStyle11,bg="green")
                myLabel2.grid(row=1,column=9,columnspan=3,rowspan=3)
                #schedule
-               myLabel3 = Label(window,text=i[4],font=fontStyle11,bg="grey")
+               myLabel3 = Label(window,text=("Chronotype: " +i[4]+" "),font=fontStyle11,bg="grey")
                myLabel3.grid(row=4,column=9,columnspan=3,rowspan=3)
                return
      myLabel1 = Label(window,text="No fit ",font=fontStyle20,bg="pink")
