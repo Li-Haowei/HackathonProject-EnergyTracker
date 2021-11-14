@@ -144,6 +144,11 @@ class Time():
     def isLeapYear(self, year):
         if (year % 4 == 0 or (year % 100 == 0 and year % 400 == 0)):
             return True
-
+    
+    def isLater(self, timeA, timeB):
+        """Take in two strings, timeA and timeB, comparing which one of them is later.
+        If timeA is later, return True, else False. 
+        For instance, isLater(10/Jan/2021,11/Jan/2021), return False"""
+        return True
 
     
