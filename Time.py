@@ -3,14 +3,20 @@
 # that includes assignments and class times
 class Time():
 
+    __month_names_short = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", \
+             "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    __month_names = ["January", "February", "March", "April", "May", "June", \
+            "July", "Aug", "September", "October", "November", "December"]
     # Initializing a Time variable
     # inputs are initialized using setter functions
     # date_unsplit: contains string dd/mm/yyyy
     # time_unsplit: contains hh:mm
-    def __init__(self, date_unsplit, time_unsplit):
-        date = date_unsplit.split("/")
-        if (time_unsplit != None):
-            time = time_unsplit.split(":")
+    def __init__(self, date_unsplit):
+        date_and_time = date_unsplit.split(" ")
+        date = date_and_time[0].split("/")
+        if (len(date_and_time) == 2):
+            time = date_and_time[1].split(":")
             self.setTime(time)
         else:
             self.hour = -1
@@ -44,18 +50,18 @@ class Time():
     # date input: list of three components,
     # day, month, year
     def setDate(self, date):
-        year_success = self.setYear(date[2])
-        self.isLeapYear = self.isLeapYear()
+        year_success = self.setYear(int(date[2]))
+        self.isLeapYear = self.isLeapYear(self.year)
         month_success = self.setMonth(date[1])
-        day_success = self.setDay(date[0], date[1])
+        day_success = self.setDay(int(date[0]), date[1])
         return year_success and month_success and day_success
 
     # setter function that sets up the time,
     # hours and minutes.
     # time input: list of two components, hrs and mins
     def setTime(self, time):
-        hour_success = self.setHour(time[0])
-        minute_success = self.setMinutes(time[1])
+        hour_success = self.setHour(int(time[0]))
+        minute_success = self.setMinutes(int(time[1]))
         return hour_success and minute_success
 
     # getter function returns the day
@@ -88,6 +94,11 @@ class Time():
 
     # setter function that sets the day
     def setDay(self, day, month):
+        if (len(month) > 3):
+            month = Time.__month_names.index(month) + 1
+        elif (len(month) == 3):
+            month = Time.__month_names_short.index(month) + 1
+
         success = False
         # isMonth_31: variable that checks
         # whether the month has 31 days
@@ -116,21 +127,20 @@ class Time():
 
     # setter function that sets the month
     def setMonth(self, month):
-        month_names_short = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", \
-             "Aug", "Sep", "Oct", "Nov", "Dec"]
-
-        month_names = ["January", "February", "March", "April", "May", "June", \
-            "July", "Aug", "September", "October", "November", "December"]
 
         success = False
         if (len(month) == 2) and month <= 12 and month > 0:
-            self.month = month_names[month-1]
+            self.month = Time.__month_names[month-1]
             self.monthNum = month
             success = True
-        elif(len(month >= 3)):
-            if (month in month_names_short or month in month_names):
-                self.month = month
-                self.monthNum = month_names.index(month)
+        elif(len(month )>= 3):
+            if (month in Time.__month_names):
+                    self.monthNum = Time.__month_names.index(month) +  1
+                    self.month = month
+                    success = True
+            elif (month in Time.__month_names_short):
+                self.monthNum = Time.__month_names_short.index(month) + 1
+                self.month = Time.__month_names[self.monthNum]
                 success = True
 
         return success
