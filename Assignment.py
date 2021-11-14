@@ -18,6 +18,11 @@ class Assignment():
         self.setGradePercent(percent_of_grade)
         self.finished = False
 
+    def getPriority(self):
+        return self.course.getPriority()
+        
+    def getDeadline(self):
+        return self.deadline
     # setter function to set the date of the assginment deadline
     def setDeadline(self, deadline_date, deadline_time):
         self.deadline = time.__init__(deadline_date, deadline_time)
