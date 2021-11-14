@@ -12,16 +12,16 @@ class Time():
     # inputs are initialized using setter functions
     # date_unsplit: contains string dd/mm/yyyy
     # time_unsplit: contains hh:mm
-    def __init__(self, date_unsplit):
-        date_and_time = date_unsplit.split(" ")
-        date = date_and_time[0].split("/")
-        if (len(date_and_time) == 2):
-            time = date_and_time[1].split(":")
-            self.setTime(time)
-        else:
+    def __init__(self, date_unsplit, time_unsplit):
+        date_split = date_unsplit.split("/")
+        time_split = time_unsplit.split(":")
+        self.setDate(date_split)
+        
+        if (time_unsplit == None):
             self.hour = -1
             self.minute = -1
-        self.setDate(date)
+        else:
+            self.setTime(time_split)
     
     def __cmp__(self, otherTime):
         isLater = False
